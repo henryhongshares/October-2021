@@ -1,0 +1,71 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © coinpass-trading
+
+//@version=4
+study("Coin Vs BTC Bottoming", overlay=true)
+
+// Create Input lookback lengths
+macro_low_length = input(title="Macro low Length", type=input.integer, defval=240)
+micro_low_length = input(title="Micro Low Length", type=input.integer, defval=60)
+pico_low_length = input(title="Pico Low Length", type=input.integer, defval=20)
+
+// Define Basket of Coins
+btc = input(title="Symbol", type= input.symbol, defval="BINANCE:BTCUSDTPERP ")
+btc_live_low = security(btc, timeframe.period , low)
+
+
+// Calculate Values
+coin_macro_Lows  = lowest(low, macro_low_length)[1]
+coin_micro_Lows  = lowest(low, micro_low_length)[1]
+coin_pico_Lows  = lowest(low, pico_low_length)[1]
+btc_macro_low = lowest(btc_live_low, macro_low_length)[1]
+btc_micro_low = lowest(btc_live_low, micro_low_length)[1]
+btc_pico_low = lowest(btc_live_low, pico_low_length)[1]
+
+
+
+// Plot Values on the Chart
+//plot(series=lowest_low,color=color.purple, linewidth=2,offset=1 )
+
+// Background highlights
+bgColour =  (  ((low > coin_macro_Lows)and(btc_live_low<btc_macro_low))  and
+               ((low>coin_micro_Lows)and(btc_live_low<btc_micro_low))    and
+               ((low>coin_pico_Lows)and(btc_live_low<btc_pico_low))  ) ? color.teal :
+               (((low > coin_macro_Lows)and(btc_live_low<btc_macro_low))  and
+               ((low>coin_micro_Lows)and(btc_live_low<btc_micro_low)) )? color.fuchsia : na
+
+bgcolor(color=bgColour, transp=80)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Get a Symbol Value
+//emaLength = input(title="EMA Length", type=input.integer,defval=50, minval=10)
+//symbolClose = security(btc, timeframe.period , close)
+//symbolEma = ema(symbolClose, emaLength)
+//emaColour = (symbolClose > symbolEma) ? color.green : color.red
+//plot(series=symbolClose, color=color.orange, linewidth=2)
+//plot(series=symbolEma, color=emaColour, style=plot.style_cross)
+
+
+
+

@@ -1,0 +1,40 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © coinpass-trading
+
+//@version=4
+study("Aggregated Futures Basis",precision=4)
+
+
+// Define Comparables
+derebit_perp = input(title="Symbol", type= input.symbol, defval="DERIBIT:BTCPERP")
+derebit_perpA = security(derebit_perp, timeframe.period , close)
+futures_1 = input(title="Symbol", type= input.symbol, defval="DERIBIT:BTC24U21")
+futures_1a = security(futures_1, timeframe.period , close)
+futures_2 = input(title="Symbol", type= input.symbol, defval="DERIBIT:BTC31Z21")
+futures_2a = security(futures_2, timeframe.period , close)
+derebit_aggregate= ((   (futures_1a-derebit_perpA) +(futures_2a-derebit_perpA)  ) /10000    )
+plot(derebit_aggregate, "derebit_aggregate", color.green)
+
+binance_perp = input(title="Symbol", type= input.symbol, defval="BINANCE:BTCPERP")
+binance_perpA = security(binance_perp, timeframe.period , close)
+futures_11 = input(title="Symbol", type= input.symbol, defval="BINANCE:BTCU2021")
+futures_1b = security(futures_11, timeframe.period , close)
+futures_22 = input(title="Symbol", type= input.symbol, defval="BINANCE:BTCZ2021")
+futures_2b = security(futures_22, timeframe.period , close)
+binance_aggregate=((   (futures_1b-binance_perpA) +(futures_2b-binance_perpA) ) /10000     )
+plot(binance_aggregate, "binance_aggregate", color.black)
+
+ftx_perp = input(title="Symbol", type= input.symbol, defval="FTX:BTCPERP")
+ftx_perpA = security(ftx_perp, timeframe.period , close)
+futures_111 = input(title="Symbol", type= input.symbol, defval="FTX:BTC0924")
+futures_1c = security(futures_111, timeframe.period , close)
+futures_222 = input(title="Symbol", type= input.symbol, defval="FTX:BTC1231")
+futures_2c = security(futures_222, timeframe.period , close)
+ftx_aggregate=((   (futures_1c-ftx_perpA) +(futures_2c-ftx_perpA) ) /10000     )
+plot(ftx_aggregate, "ftx_aggregate", color.blue)
+
+
+// Background highlights
+//bgColour =  (  abs(((high-ETC_BINANCE)/ETC_BINANCE))> 0.20)  ? color.black :na
+//plot(abs(((high-ETC_BINANCE)/ETC_BINANCE)))
+//bgcolor(color=bgColour, transp=90)

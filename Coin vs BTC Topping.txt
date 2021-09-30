@@ -1,0 +1,71 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © coinpass-trading
+
+//@version=4
+study("Coin Vs BTC Topping", overlay=true)
+
+// Create Input lookback lengths
+macro_high_length = input(title="Macro high Length", type=input.integer, defval=240)
+micro_high_length = input(title="Micro high Length", type=input.integer, defval=60)
+pico_high_length = input(title="Pico high Length", type=input.integer, defval=20)
+
+// Define Basket of Coins
+btc = input(title="Symbol", type= input.symbol, defval="BINANCE:BTCUSDTPERP ")
+btc_live_high = security(btc, timeframe.period , high)
+
+
+// Calculate Values
+coin_macro_Highs  = highest(high, macro_high_length)[1]
+coin_micro_Highs  = highest(high, micro_high_length)[1]
+coin_pico_Highs  = highest(high, pico_high_length)[1]
+btc_macro_Highs = highest(btc_live_high, macro_high_length)[1]
+btc_micro_Highs = highest(btc_live_high, micro_high_length)[1]
+btc_pico_Highs = highest(btc_live_high, pico_high_length)[1]
+
+
+
+// Plot Values on the Chart
+//plot(series=lowest_low,color=color.purple, linewidth=2,offset=1 )
+
+// Background highlights
+bgColour =  (  ((high < coin_macro_Highs)and(btc_live_high>btc_macro_Highs))  and
+               ((high <coin_micro_Highs)and(btc_live_high>btc_micro_Highs))    and
+               ((high <coin_pico_Highs)and(btc_live_high>btc_pico_Highs))  ) ? color.red :
+               (((high < coin_macro_Highs)and(btc_live_high>btc_macro_Highs))  and
+               ((high< coin_micro_Highs)and(btc_live_high>btc_micro_Highs)) )? color.maroon : na
+
+bgcolor(color=bgColour, transp=80)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Get a Symbol Value
+//emaLength = input(title="EMA Length", type=input.integer,defval=50, minval=10)
+//symbolClose = security(btc, timeframe.period , close)
+//symbolEma = ema(symbolClose, emaLength)
+//emaColour = (symbolClose > symbolEma) ? color.green : color.red
+//plot(series=symbolClose, color=color.orange, linewidth=2)
+//plot(series=symbolEma, color=emaColour, style=plot.style_cross)
+
+
+
+
