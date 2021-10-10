@@ -7,7 +7,8 @@ from binance.client import Client
 from datetime import timedelta, datetime
 from dateutil import parser
 from tqdm import tqdm_notebook #(Optional, used for progress-bars)
-
+import time
+start_time = time.time()
 ### API
 
 binance_api_key = 'VFUpZTZCaXPz8ScCWm0yhkRW3J8VqGr9pPAlpXEVIclkeRDPjp7z8xtQmS2sfQWS'    #Enter your own API-key here
@@ -83,3 +84,10 @@ get_all_binance('AAVEUSDT', '1m', save = True)
 get_all_binance('XRPUSDT', '1m', save = True)
 
 
+
+runtime = time.time() - start_time
+runtime_whole_minutes = round(runtime/60)
+runtime_leftover_minutes= runtime % 60
+
+print (f"My program took, {runtime} seconds, to run")
+print (f"which is, {runtime_whole_minutes}:{runtime_leftover_minutes} minutes, to run")

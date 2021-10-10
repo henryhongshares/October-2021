@@ -87,7 +87,8 @@ print('All caught up..!')
 
 
 runtime = time.time() - start_time
-runtime_minutes= runtime/60
+runtime_whole_minutes = round(runtime/60)
+runtime_leftover_minutes= runtime % 60
 
 print (f"My program took, {runtime} seconds, to run")
-print (f"which is, {runtime_minutes} minutes, to run")
+print (f"which is, {runtime_whole_minutes}:{runtime_leftover_minutes} minutes, to run")

@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 import numpy as np
 import csv
+import time
+start_time = time.time()
+
 
 symbol = (input("Which time symbol/coin?  Enter here: "))
 suffix = '-1d-data.csv'
@@ -110,6 +113,13 @@ pump_dump_df ["open_to_high_percentage"] =open_to_high_percentage
 pump_dump_df ["low_to_high_percentage"] =low_to_high_percentage
 pump_dump_df ["low_to_close_percentage"] =low_to_close_percentage 
 
+
+runtime = time.time() - start_time
+runtime_whole_minutes = round(runtime/60)
+runtime_leftover_minutes= runtime % 60
+
+print (f"My program took, {runtime} seconds, to run")
+print (f"which is, {runtime_whole_minutes}:{runtime_leftover_minutes} minutes, to run")
 
 # libraries & dataset
 
